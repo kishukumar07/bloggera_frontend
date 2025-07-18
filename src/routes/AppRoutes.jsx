@@ -13,6 +13,9 @@ import Blog from "../pages/Blog";
 
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Dashboard from "../pages/dashboard";
+
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
   return (
@@ -22,9 +25,25 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/blogs" element={<Blog />} />
-      <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/about" element={<About />} />
+      {/* ✅ Protected Routes */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/blogs"
+        element={
+          <ProtectedRoute>
+            <Blog />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

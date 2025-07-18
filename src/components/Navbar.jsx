@@ -23,7 +23,7 @@ function Navbar() {
       {/* Right - Auth Buttons */}
       <div className="flex gap-3">
         <Link
-          to="/auth"
+          to="/login"
           className="text-sm text-blue-600 font-semibold hover:underline"
         >
           Sign In

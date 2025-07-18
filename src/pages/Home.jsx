@@ -26,7 +26,7 @@ function Home() {
               Explore Blogs
             </Link>
             <Link
-              to="/auth"
+              to="/dashboard"
               className="border border-orange-500 text-orange-400 px-6 py-2 rounded-md hover:bg-orange-500 hover:text-black transition"
             >
               Get Started
