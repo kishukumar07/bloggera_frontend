@@ -17,12 +17,15 @@ function Login() {
     fetch("http://localhost:4500/user/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
+
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          // console.log(data);
           localStorage.setItem("token", data.token);
+          alert(data.msg);
           navigate("/dashboard");
         } else {
           alert("Invalid credentials. Please try again.");
