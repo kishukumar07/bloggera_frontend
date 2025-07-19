@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CreateBlog = () => {
+const CreateBlog = ({ setActiveTab }) => {
   const [blog, setBlog] = useState({
     title: "",
     content: "",
@@ -25,20 +25,23 @@ const CreateBlog = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        
         if (data.success) {
-          console.log(data);
+          // console.log(data);
           alert(data.msg);
+
+          //we have to change the state of the active tab in /dashboard  to "latest"
+          setActiveTab("latest");
+          // console.log(`${setActiveTab}`);
         } else {
           console.log(data);
-          alert(data.msg);
+          alert("something went wrong! please try again");
         }
       })
       .catch((err) => {
         console.log(err.msg);
         alert("Something went Wrong! Please try again later");
       });
-
-    // alert("ok");
   };
 
   return (
@@ -50,6 +53,10 @@ const CreateBlog = () => {
         className="space-y-4"
         onSubmit={(e) => {
           e.preventDefault();
+          if (!blog.title || !blog.content || !blog.category) {
+            alert("Please fill in all fields before submitting.");
+            return;
+          }
           //check for emptyness...
           handelSubmit(blog);
         }}
@@ -60,7 +67,7 @@ const CreateBlog = () => {
           className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
           value={blog.title}
           onChange={(event) => {
-            console.log(event.target.value);
+            // console.log(event.target.value);
             changeHandler("title", event.target.value);
           }}
         />
@@ -71,7 +78,7 @@ const CreateBlog = () => {
           className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
           value={blog.category}
           onChange={(event) => {
-            console.log(event.target.value);
+            // console.log(event.target.value);
             changeHandler("category", event.target.value);
           }}
         />
@@ -81,7 +88,7 @@ const CreateBlog = () => {
           className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
           value={blog.content}
           onChange={(event) => {
-            console.log(event.target.value);
+            // console.log(event.target.value);
             changeHandler("content", event.target.value);
           }}
         ></textarea>

@@ -51,7 +51,7 @@ const Dashboard = () => {
       {/* Conditional Render */}
       <div className="bg-[#111111] p-6 rounded-xl shadow-inner border border-orange-800">
         {activeTab === "latest" && <LatestBlog />}
-        {activeTab === "create" && <CreateBlog />}
+        {activeTab === "create" && <CreateBlog setActiveTab={setActiveTab} />}
         {activeTab === "myblogs" && <Myblog />}
         {activeTab === "saved" && <SavedBlog />}
       </div>

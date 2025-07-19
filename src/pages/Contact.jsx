@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function Contact() {
   return (
@@ -6,10 +6,14 @@ function Contact() {
       {/* Page Header */}
       <section className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Contact <span className="bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">Us</span>
+          Contact{" "}
+          <span className="bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+            Us
+          </span>
         </h1>
         <p className="text-lg text-gray-400 max-w-xl mx-auto">
-          We'd love to hear from you! Whether it's feedback, a question, or just saying hi — feel free to reach out.
+          We'd love to hear from you! Whether it's feedback, a question, or just
+          saying hi — feel free to reach out.
         </p>
       </section>
 
@@ -20,7 +24,9 @@ function Contact() {
         <form className="space-y-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-300">Name</label>
+              <label className="block text-sm font-medium text-gray-300">
+                Name
+              </label>
               <input
                 type="text"
                 placeholder="Your Name"
@@ -29,7 +35,9 @@ function Contact() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300">Email</label>
+              <label className="block text-sm font-medium text-gray-300">
+                Email
+              </label>
               <input
                 type="email"
                 placeholder="you@example.com"
@@ -39,7 +47,9 @@ function Contact() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300">Message</label>
+            <label className="block text-sm font-medium text-gray-300">
+              Message
+            </label>
             <textarea
               rows="5"
               placeholder="Write your message..."
