@@ -1,7 +1,4 @@
-import React from "react";
-
-// import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import LatestBlog from "../components/Latestblog";
 import CreateBlog from "../components/Createblog";
 import Myblog from "../components/Myblog";
@@ -10,47 +7,49 @@ import SavedBlog from "../components/Savedblog";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("latest");
 
-  const userName = "Niket";
+  const buttonStyle = (tab) =>
+    `rounded-lg text-white font-semibold py-3 px-4 transition duration-300 shadow-lg ${
+      activeTab === tab
+        ? "bg-gradient-to-r from-orange-500 to-yellow-400"
+        : "bg-[#1a1a1a] border border-orange-600 hover:bg-orange-700"
+    }`;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      {/* Header */}
-      {/* <div className="bg-white p-6 rounded-xl shadow-md mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
-          👋 Hello, {userName}!
-        </h1>
-        <p className="text-gray-600 mt-1">
-          Ready to write something amazing today?
-        </p>
-      </div> */}
+    <div className="min-h-screen bg-[#000000] text-white p-6">
+      <h1 className="text-3xl font-bold text-white mb-6">
+        🧠 Your <span className="text-yellow-400">Dashboard</span>
+      </h1>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+      {/* Buttons */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-lg font-medium shadow"
+          className={buttonStyle("latest")}
+          onClick={() => setActiveTab("latest")}
+        >
+          📰 Latest Blogs
+        </button>
+        <button
+          className={buttonStyle("create")}
           onClick={() => setActiveTab("create")}
         >
-          📝 Create New Blog
+          ✍️ Create Blog
         </button>
         <button
-          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg font-medium shadow"
-          onClick={() => {
-            setActiveTab("myblogs");
-          }}
+          className={buttonStyle("myblogs")}
+          onClick={() => setActiveTab("myblogs")}
         >
-          📂 My Blogs
+          📚 My Blogs
         </button>
         <button
-          className="bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-lg font-medium shadow"
-          onClick={() => {
-            setActiveTab("saved");
-          }}
+          className={buttonStyle("saved")}
+          onClick={() => setActiveTab("saved")}
         >
-          🔖 Saved Blogs
+          💾 Saved Blogs
         </button>
       </div>
-      {/* conditonlal rendering here  */}
-      <div>
+
+      {/* Conditional Render */}
+      <div className="bg-[#111111] p-6 rounded-xl shadow-inner border border-orange-800">
         {activeTab === "latest" && <LatestBlog />}
         {activeTab === "create" && <CreateBlog />}
         {activeTab === "myblogs" && <Myblog />}
