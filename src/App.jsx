@@ -4,12 +4,16 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import AppRoutes from "./routes/AppRoutes";
 
+import { BlogProvider } from "./Context/BlogContext";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <AppRoutes />
+
+      <BlogProvider>
+        <AppRoutes />
+      </BlogProvider>
     </div>
   );
 }

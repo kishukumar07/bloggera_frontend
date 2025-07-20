@@ -1,78 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
 
 import formatDate from "../utils/dateFormatter";
 
-// const blogarr = [
-//   {
-//     id: 1,
-//     title: "The Power of Consistent Writing",
-//     description: "Discover how daily writing transforms your creativity.",
-//     author: "Niket Kumar",
-//     date: "July 17, 2025",
-//     image: "/prog.png",
-//   },
-//   {
-//     id: 2,
-//     title: "5 Tips for Beginner Bloggers",
-//     description: "Start strong with these simple and effective blogging tips.",
-//     author: "Anjali Sharma",
-//     date: "July 14, 2025",
-//     image: "/prog.png",
-//   },
-//   {
-//     id: 3,
-//     title: "Building Your Audience in 2025",
-//     description:
-//       "Learn how to attract and grow your reader base in the AI age.",
-//     author: "Raj Verma",
-//     date: "July 10, 2025",
-//     image: "/prog.png",
-//   },
-// ];
-const getblogs = async () => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch("http://localhost:4500/blog/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      console.log(data.blogs);
-      return data.blogs;
-    } else {
-      console.log(data.msg);
-      return []; // return empty array on failure
-    }
-  } catch (err) {
-    console.log("Fetch error:", err);
-    return []; // return empty array on error
-  }
-};
+import { useBlog } from "../Context/BlogContext";
 
 export default function Blog() {
-  const [blogs, setBlogs] = useState([]);
+  const { blogs } = useBlog();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      const blogs = await getblogs();
-      // console.log(blogs); // logs actual blogs
-      setBlogs(blogs); // assuming setBlogs is from useState
-    };
-
-    fetchBlogs();
-  }, []);
-
-  // console.log(blogs);
+  console.log(blogs);
 
   //  NOW WE HAVE BLOG WE HAVE TO DISPLAY IT IN DIV ... //also have to transfer the blog to the latest blog in /dashboard...
 
