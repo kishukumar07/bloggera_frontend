@@ -1,8 +1,8 @@
-const getblogs = async () => {
+const fetchblogById = async (blogId) => {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:4500/blog/", {
+    const res = await fetch(`http://localhost:4500/blog/${blogId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -13,8 +13,8 @@ const getblogs = async () => {
     const data = await res.json();
 
     if (data.success) {
-      // console.log(data.blogs);
-      return data.blogs;
+      // console.log(data.blog);
+      return data.blog;
     } else {
       console.log(data.msg);
       return []; // return empty array on failure
@@ -25,4 +25,4 @@ const getblogs = async () => {
   }
 };
 
-export default getblogs;
+export default fetchblogById;

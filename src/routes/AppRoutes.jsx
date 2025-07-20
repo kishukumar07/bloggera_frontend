@@ -14,6 +14,7 @@ import Blog from "../pages/Blog";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Dashboard from "../pages/dashboard";
+import OneBlog from "../pages/OneBlog";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -27,6 +28,7 @@ function AppRoutes() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
+
       {/* ✅ Protected Routes */}
       <Route
         path="/dashboard"
@@ -44,6 +46,9 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      {/* single blog Route  */}
+      <Route path="/OneBlog/:blog_id" element={<OneBlog />} />
     </Routes>
   );
 }

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const LatestBlog = () => {
   const { blogs } = useBlog();
 
-  console.log(blogs);
+  // console.log(blogs);
 
   return (
     <div className="space-y-4">
@@ -34,7 +34,7 @@ const LatestBlog = () => {
                 <span>{formatDate(blog.createdAt)}</span>
               </div>
               <Link
-                to={`/blogs/${blog._id}`}
+                to={`/OneBlog/${blog._id}`}
                 className="inline-block text-orange-400 font-medium hover:underline"
               >
                 Read More →

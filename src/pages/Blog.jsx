@@ -51,7 +51,7 @@ export default function Blog() {
                 <span>{formatDate(blog.createdAt)}</span>
               </div>
               <Link
-                to={`/blogs/${blog._id}`}
+                to={`/OneBlog/${blog._id}`}
                 className="inline-block text-orange-400 font-medium hover:underline"
               >
                 Read More →
