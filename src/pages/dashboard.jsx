@@ -3,9 +3,11 @@ import LatestBlog from "../components/Latestblog";
 import CreateBlog from "../components/Createblog";
 import Myblog from "../components/Myblog";
 import SavedBlog from "../components/Savedblog";
+import Editblog from "../components/Editblog";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("latest");
+  const [selectedBlogId, setSelectedBlogId] = useState(null);
 
   const buttonStyle = (tab) =>
     `rounded-lg text-white font-semibold py-3 px-4 transition duration-300 shadow-lg ${
@@ -52,8 +54,15 @@ const Dashboard = () => {
       <div className="bg-[#111111] p-6 rounded-xl shadow-inner border border-orange-800">
         {activeTab === "latest" && <LatestBlog />}
         {activeTab === "create" && <CreateBlog setActiveTab={setActiveTab} />}
-        {activeTab === "myblogs" && <Myblog />}
+        {activeTab === "myblogs" && (
+          <Myblog
+            setActiveTab={setActiveTab}
+            setSelectedBlogId={setSelectedBlogId}
+          />
+        )}
         {activeTab === "saved" && <SavedBlog />}
+        {activeTab === "edit" && <Editblog blogId={selectedBlogId} setActiveTab={setActiveTab} />}
+      
       </div>
     </div>
   );
