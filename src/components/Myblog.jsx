@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import fetchMyBlogs from "../utils/fetchMyBlog";
 // import { Link } from "react-router-dom";
+import ConfirmationCompo from "./ConfirmationCompo";
 
 const Myblog = (props) => {
   const [blogs, setBlogs] = useState([]);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -61,15 +63,28 @@ const Myblog = (props) => {
                       className="text-yellow-400 hover:text-yellow-300 font-medium transition duration-150"
                       onClick={() => {
                         props.setActiveTab("edit");
-
                         props.setSelectedBlogId(`${blog._id}`);
                       }}
                     >
                       ✏️ Edit
                     </button>
-                    <button className="text-red-500 hover:text-red-400 font-medium transition duration-150">
+                    <button
+                      onClick={() => {
+                        setShowConfirm(true);
+
+                        props.setSelectedBlogId(`${blog._id}`);
+                      }}
+                      className="text-red-500 hover:text-red-400 font-medium transition duration-150"
+                    >
                       🗑️ Delete
                     </button>
+                    {/* Confirmation tab appears on top */}
+                    {showConfirm && (
+                      <ConfirmationCompo
+                        setShowConfirm={setShowConfirm}
+                        selectedBlogId={props.selectedBlogId}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

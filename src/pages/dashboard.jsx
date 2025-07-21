@@ -58,11 +58,13 @@ const Dashboard = () => {
           <Myblog
             setActiveTab={setActiveTab}
             setSelectedBlogId={setSelectedBlogId}
+            selectedBlogId={selectedBlogId}
           />
         )}
         {activeTab === "saved" && <SavedBlog />}
-        {activeTab === "edit" && <Editblog blogId={selectedBlogId} setActiveTab={setActiveTab} />}
-      
+        {activeTab === "edit" && (
+          <Editblog blogId={selectedBlogId} setActiveTab={setActiveTab} />
+        )}
       </div>
     </div>
   );
