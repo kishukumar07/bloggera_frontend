@@ -2,7 +2,7 @@ const fetchblogById = async (blogId) => {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:4500/blog/${blogId}`, {
+    const res = await fetch(`https://bloggera-gpel.onrender.com/blog/${blogId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

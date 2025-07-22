@@ -25,7 +25,7 @@ function Register() {
     // console.log(formData);
 
     // http://localhost:4500/user/register
-    fetch("http://localhost:4500/user/register", {
+    fetch("https://bloggera-gpel.onrender.com/user/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -138,7 +138,10 @@ function Register() {
           <div className="mt-3 text-center">
             <p className="text-xs text-gray-400">
               Already have an account?
-              <Link to="/login" className="text-orange-400 hover:underline ml-1">
+              <Link
+                to="/login"
+                className="text-orange-400 hover:underline ml-1"
+              >
                 Sign In
               </Link>
             </p>

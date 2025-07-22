@@ -1,7 +1,7 @@
 export const deleteBlog = async (blogid) => {
   try {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:4500/blog/delete/${blogid}`, {
+    const res = await fetch(`https://bloggera-gpel.onrender.com/blog/delete/${blogid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
