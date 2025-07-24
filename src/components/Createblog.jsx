@@ -1,4 +1,5 @@
 import { useState } from "react";
+import createContent from "../utils/createContent";
 
 const CreateBlog = ({ setActiveTab }) => {
   const [blog, setBlog] = useState({
@@ -12,35 +13,14 @@ const CreateBlog = ({ setActiveTab }) => {
     // console.log(blog);
   };
 
-  const handelSubmit = (blog) => {
-    const token = localStorage.getItem("token");
+  const handelSubmit = async (blog) => {
+    const res = await createContent(blog);
 
-    fetch("https://bloggera-gpel.onrender.com/blog/create", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(blog),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          // console.log(data);
-          alert(data.msg);
-
-          //we have to change the state of the active tab in /dashboard  to "latest"
-          setActiveTab("latest");
-          // console.log(`${setActiveTab}`);
-        } else {
-          console.log(data);
-          alert("something went wrong! please try again");
-        }
-      })
-      .catch((err) => {
-        console.log(err.msg);
-        alert("Something went Wrong! Please try again later");
-      });
+    if (res) {
+      //we have to change the state of the active tab in /dashboard  to "latest"
+      setActiveTab("latest");
+      // console.log(`${setActiveTab}`);
+    }
   };
 
   return (
