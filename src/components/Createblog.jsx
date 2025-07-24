@@ -15,7 +15,7 @@ const CreateBlog = ({ setActiveTab }) => {
   const handelSubmit = (blog) => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:4500/blog/create", {
+    fetch("https://bloggera-gpel.onrender.com/blog/create", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -25,7 +25,6 @@ const CreateBlog = ({ setActiveTab }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        
         if (data.success) {
           // console.log(data);
           alert(data.msg);
