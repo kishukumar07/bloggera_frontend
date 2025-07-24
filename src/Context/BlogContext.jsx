@@ -1,11 +1,12 @@
 import React from "react";
 
 import getblogs from "../utils/fetchblogs.js";
-import { useState, useEffect, createContext ,useContext} from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 
 const BlogContext = createContext();
 
 export const BlogProvider = ({ children }) => {
+  
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -21,6 +22,5 @@ export const BlogProvider = ({ children }) => {
     <BlogContext.Provider value={{ blogs }}>{children}</BlogContext.Provider>
   );
 };
-
 
 export const useBlog = () => useContext(BlogContext);

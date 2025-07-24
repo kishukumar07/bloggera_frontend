@@ -18,6 +18,8 @@ import OneBlog from "../pages/OneBlog";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
+import Logout from "../pages/Logout";
+
 function AppRoutes() {
   return (
     <Routes>
@@ -28,6 +30,8 @@ function AppRoutes() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
+      
+      <Route path="/logout" element={<Logout />} />
 
       {/* ✅ Protected Routes */}
       <Route
