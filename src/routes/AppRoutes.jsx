@@ -18,7 +18,7 @@ import OneBlog from "../pages/OneBlog";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
-import Logout from "../pages/Logout";
+// import Logout from "../pages/Logout";
 
 function AppRoutes() {
   return (
@@ -31,7 +31,7 @@ function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
       
-      <Route path="/logout" element={<Logout />} />
+      {/* <Route path="/logout" element={<Logout />} /> */}
 
       {/* ✅ Protected Routes */}
       <Route

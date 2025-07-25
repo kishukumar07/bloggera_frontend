@@ -14,7 +14,18 @@ function Contact() {
     const res = await postContactMsg(formData);
 
     // console.log(res);
-    res ? alert("sent") : alert("something went wrong ! try again ");
+    if (res) {
+
+      alert("sent");
+      setformData({
+                name: "",
+                email: "",
+                message: "",
+              })  
+            
+    } else {
+      alert("something went wrong ! try again ");
+    }
   };
 
   const changeHandler = (key, value) => {
@@ -49,6 +60,7 @@ function Contact() {
             if (!formData.name || !formData.email || !formData.message) {
               return alert("All fields required");
             }
+
             handleSubmit(formData);
           }}
         >

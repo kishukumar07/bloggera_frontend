@@ -1,8 +1,26 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthCheckContext";
+import { logout } from "../utils/logout";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const { authenticated } = useAuth();
+  const { authenticated, setAuthenticated } = useAuth();
+  // const { setAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res) {
+      console.log(res);
+      localStorage.removeItem("token");
+      setAuthenticated(false);
+      navigate("/");
+    } else {
+      alert("login first");
+
+      navigate("/");
+    }
+  };
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-[#0f0f0f] border-b border-orange-500 shadow-md">
@@ -53,13 +71,17 @@ function Navbar() {
         </div>
       ) : (
         <div className="flex gap-3">
-          <Link
-            to="/logout"
-            replace
+          <button
             className="text-sm text-orange-400 font-semibold hover:underline"
+            onClick={() => {
+              handleLogout();
+            }}
           >
             Sign Out
-          </Link>
+          </button>
+          {/* <Link to="/logout" replace>
+            Sign Out
+          </Link> */}
         </div>
       )}
     </nav>
