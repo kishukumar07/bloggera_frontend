@@ -1,6 +1,26 @@
-import React from "react";
+import { useState } from "react";
+import { postContactMsg } from "../utils/contact";
 
 function Contact() {
+  const [formData, setformData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = async (formData) => {
+    //this post the data
+    // console.log(formData); //need to post this data to BE contact route ..
+    const res = await postContactMsg(formData);
+
+    // console.log(res);
+    res ? alert("sent") : alert("something went wrong ! try again ");
+  };
+
+  const changeHandler = (key, value) => {
+    setformData({ ...formData, [key]: value });
+  };
+
   return (
     <main className="min-h-screen bg-black text-white px-6 py-16 font-sans">
       {/* Page Header */}
@@ -21,7 +41,17 @@ function Contact() {
       <section className="max-w-4xl mx-auto bg-white/5 border border-white/10 backdrop-blur-md p-8 rounded-xl shadow-[0_0_40px_#ff6a3d40] relative">
         <div className="absolute -top-10 -left-10 w-32 h-32 bg-orange-500 opacity-20 rounded-full blur-3xl animate-pulse"></div>
 
-        <form className="space-y-6 relative z-10">
+        <form
+          className="space-y-6 relative z-10"
+          onSubmit={(e) => {
+            //here goes validation
+            e.preventDefault();
+            if (!formData.name || !formData.email || !formData.message) {
+              return alert("All fields required");
+            }
+            handleSubmit(formData);
+          }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300">
@@ -31,6 +61,10 @@ function Contact() {
                 type="text"
                 placeholder="Your Name"
                 className="w-full px-4 py-2 mt-1 bg-black border border-gray-600 text-white rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.name}
+                onChange={(e) => {
+                  changeHandler("name", e.target.value);
+                }}
               />
             </div>
 
@@ -42,6 +76,10 @@ function Contact() {
                 type="email"
                 placeholder="you@example.com"
                 className="w-full px-4 py-2 mt-1 bg-black border border-gray-600 text-white rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                value={formData.email}
+                onChange={(e) => {
+                  changeHandler("email", e.target.value);
+                }}
               />
             </div>
           </div>
@@ -54,6 +92,10 @@ function Contact() {
               rows="5"
               placeholder="Write your message..."
               className="w-full px-4 py-2 mt-1 bg-black border border-gray-600 text-white rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              value={formData.message}
+              onChange={(e) => {
+                changeHandler("message", e.target.value);
+              }}
             ></textarea>
           </div>
 
