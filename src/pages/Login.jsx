@@ -14,9 +14,9 @@ function Login() {
 
   const handleGitHubLogin = () => {
     window.location.href =
-      "https://github.com/login/oauth/authorize?client_id=Ov23liMKeiAvOWNmLx7K&scope=user:email";
+      "https://github.com/login/oauth/authorize?client_id=Ov23liMKeiAvOWNmLx7K&scope=read:user user:email";
 
-    // setAuthenticated(true);
+    // setAuthenticated(true);  //this can be handel in better way ... 
   };
 
   const handelSubmit = (formData) => {

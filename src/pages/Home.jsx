@@ -2,6 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    // Save it in localStorage or sessionStorage
+    localStorage.setItem("token", token);
+    // alert("no");
+    console.log("Token saved:", token);
+
+    // Optionally, redirect to another internal route
+    // window.location.href = "/dashboard/main";
+  } else {
+    // alert("yes");
+    console.error("Token not found in URL");
+    // Handle error (e.g., show login prompt)
+  }
+
   return (
     <main className="min-h-screen bg-black text-white font-sans relative overflow-hidden">
       {/* Glowing Orb Effects */}
@@ -54,9 +71,21 @@ function Home() {
       <section className="bg-[#111111] py-16 relative z-10">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {[
-            { icon: "✍️", title: "Write", text: "Publish your ideas and share your thoughts with the world." },
-            { icon: "📖", title: "Read", text: "Browse content from diverse creators and topics that matter." },
-            { icon: "💬", title: "Engage", text: "Connect with a growing community of readers and bloggers." },
+            {
+              icon: "✍️",
+              title: "Write",
+              text: "Publish your ideas and share your thoughts with the world.",
+            },
+            {
+              icon: "📖",
+              title: "Read",
+              text: "Browse content from diverse creators and topics that matter.",
+            },
+            {
+              icon: "💬",
+              title: "Engage",
+              text: "Connect with a growing community of readers and bloggers.",
+            },
           ].map(({ icon, title, text }, idx) => (
             <div
               key={idx}
