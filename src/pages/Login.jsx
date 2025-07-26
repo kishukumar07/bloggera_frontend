@@ -6,15 +6,17 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const { setAuthenticated } = useAuth(); 
+  const { setAuthenticated } = useAuth();
 
   const changeHandler = (key, value) => {
     setFormData({ ...formData, [key]: value });
   };
 
   const handleGitHubLogin = () => {
-    window.location.href = "http://localhost:5000/auth/github";
-    // setAuthenticated(true); 
+    window.location.href =
+      "https://github.com/login/oauth/authorize?client_id=Ov23liMKeiAvOWNmLx7K&scope=user:email";
+
+    // setAuthenticated(true);
   };
 
   const handelSubmit = (formData) => {
@@ -30,7 +32,7 @@ function Login() {
           // console.log(data);
           localStorage.setItem("token", data.token);
           alert(data.msg);
-          setAuthenticated(true);  //this will change the nav ..
+          setAuthenticated(true); //this will change the nav ..
           navigate("/dashboard");
         } else {
           alert("Invalid credentials. Please try again.");
