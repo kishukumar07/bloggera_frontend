@@ -6,7 +6,7 @@ import ConfirmationCompo from "./ConfirmationCompo";
 const Myblog = (props) => {
   const [blogs, setBlogs] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
-
+    
   useEffect(() => {
     (async () => {
       const data = await fetchMyBlogs();
@@ -95,5 +95,5 @@ const Myblog = (props) => {
     </div>
   );
 };
-
+    
 export default Myblog;

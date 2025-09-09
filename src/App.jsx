@@ -14,6 +14,7 @@ function App() {
       <BlogProvider>
         <AppRoutes />
       </BlogProvider>
+    
     </div>
   );
 }

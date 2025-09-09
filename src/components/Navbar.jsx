@@ -2,9 +2,17 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthCheckContext";
 import { logout } from "../utils/logout";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+//for dynamic navigation purpose...
+
+import { jwtDecode } from "jwt-decode";
+
+//admin login hai ya nai idar se pta chal jayega ek state manage kr denge ...
 
 function Navbar() {
   const { authenticated, setAuthenticated } = useAuth();
+  const [IsAdmin, setIsAdmin] = useState(false); //we'll use it for dynamic nav #conditionalRendering
   // const { setAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -21,6 +29,94 @@ function Navbar() {
       navigate("/");
     }
   };
+
+  // for admin  #conditionalRendering
+  // Use useEffect to avoid calling setIsAdmin in render
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (authenticated && token) {
+      try {
+        const role = jwtDecode(token).role;
+        if (role === "admin") {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (e) {
+        setIsAdmin(false);
+      }
+    } else {
+      setIsAdmin(false);
+    }
+  }, [authenticated]);
+
+  if (IsAdmin) {
+    return (
+      <nav className="flex items-center justify-between px-6 py-4 bg-[#0f0f0f] border-b border-orange-500 shadow-md">
+        {/* Left - Logo and Brand */}
+        <div className="flex items-center gap-3">
+          <img className="w-10 h-10" src="/logo.png" alt="logo" />
+          <Link
+            to="/"
+            className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400"
+          >
+            Bloggera
+          </Link>
+        </div>
+
+        {/* Center - Navigation Links */}
+        <div className="hidden md:flex gap-6 text-gray-300 font-medium">
+          <Link
+            className="hover:text-orange-400 transition"
+            to="/admindashboard"
+          >
+            Dashboard
+          </Link>
+        </div>
+
+        {/* Right - Auth Buttons */}
+        {!authenticated ? (
+          <div className="flex gap-3">
+            <Link
+              to="/login"
+              replace
+              className="text-sm text-orange-400 font-semibold hover:underline"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/register"
+              replace
+              className="text-sm bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
+            >
+              Register
+            </Link>
+            <Link
+              to="/AdminLogin"
+              replace
+              className="text-sm bg-gradient-to-r from-green-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
+            >
+              AdminLogin
+            </Link>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            <button
+              className="text-sm text-orange-400 font-semibold hover:underline"
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              Sign Out
+            </button>
+            {/* <Link to="/logout" replace>
+            Sign Out
+          </Link> */}
+          </div>
+        )}
+      </nav>
+    );
+  }
 
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-[#0f0f0f] border-b border-orange-500 shadow-md">
@@ -67,6 +163,13 @@ function Navbar() {
             className="text-sm bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
           >
             Register
+          </Link>
+          <Link
+            to="/AdminLogin"
+            replace
+            className="text-sm bg-gradient-to-r from-green-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
+          >
+            AdminLogin
           </Link>
         </div>
       ) : (

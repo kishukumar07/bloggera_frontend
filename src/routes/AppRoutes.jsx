@@ -19,6 +19,8 @@ import OneBlog from "../pages/OneBlog";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 // import Logout from "../pages/Logout";
+import AdminLogin from "../pages/AdminLogin";
+import AdminDashboard from "../pages/AdminDashboard";
 
 function AppRoutes() {
   return (
@@ -30,10 +32,21 @@ function AppRoutes() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
-      
+
       {/* <Route path="/logout" element={<Logout />} /> */}
 
-      {/* ✅ Protected Routes */}
+      <Route path="/adminlogin" element={<AdminLogin />} />
+      {/* Protected Routes */}
+      <Route
+        path="/adminDashboard"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Protected Routes */}
       <Route
         path="/dashboard"
         element={
@@ -50,6 +63,10 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      {/* route:"...adminDashboardPannel..."
+     Protected by AdminloginComponenet
+    */}
 
       {/* single blog Route  */}
       <Route path="/OneBlog/:blog_id" element={<OneBlog />} />

@@ -15,11 +15,12 @@ const ProtectedRoute = ({ children }) => {
 
   const currentTime = Date.now() / 1000; // in seconds
   try {
-
     if (decoded.exp < currentTime) {
-    // console.log(decoded.exp ,currentTime)
+      // console.log(decoded.exp ,currentTime)
       // Token has expired
       localStorage.removeItem("token");
+
+  
       return <Navigate to="/login" replace />;
     }
 
