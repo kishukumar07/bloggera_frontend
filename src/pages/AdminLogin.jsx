@@ -15,7 +15,7 @@ function AdminLogin() {
   const handelSubmit = (formData) => {
     //the url will be change for admin login purpose
     // fetch("https://bloggera-gpel.onrender.com/admin/login", {
-    fetch("http://localhost:4500/admin/login", {
+    fetch("https://bloggera-gpel.onrender.com/admin/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
 
