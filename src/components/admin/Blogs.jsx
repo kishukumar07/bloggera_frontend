@@ -1,27 +1,27 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import {
+  fetchBlog,
+  updateBState,
+  deleteBlog,
+} from "../../utils/admin/blogs.js";
+import { AlertTriangle } from "lucide-react";
+import { ConfirmationalCompoDynamic } from "./ConfirmationalCompoDynamic.1";
+// import { deleteUser } from "../../utils/admin/users";
 
 function Blogs() {
-  const blogs = [
-    {
-      id: 1,
-      title: "React Hooks Guide",
-      status: "Pending",
-      author: "John Doe",
-    },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-    { id: 2, title: "Node.js Tips", status: "Approved", author: "Jane Smith" },
-  ];
+  const [blogs, setblogs] = useState([]);
+  const [BId, setBId] = useState("");
+  const [action, setAction] = useState(""); //for restful actions  delete or changeStatus
+  const [status, setstatus] = useState(""); //for  "pending", "rejected", "fullfilled"
+  const [showConfirm, setShowConfirm] = useState(false); //for confirmational component
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetchBlog();
+      setblogs(res.blogs);
+    })();
+  }, [BId]);
 
   return (
     <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
@@ -37,21 +37,62 @@ function Blogs() {
         </thead>
         <tbody>
           {blogs.map((blog) => (
-            <tr key={blog.id} className="border-b border-gray-700">
+            <tr key={blog._id} className="border-b border-gray-700">
               <td className="py-2">{blog.title}</td>
               <td className="py-2">{blog.author}</td>
               <td className="py-2">{blog.status}</td>
               <td className="py-2 space-x-2">
-                <button className="px-2 py-1 bg-green-600 rounded text-xs">
+                <button
+                  className="px-2 py-1 bg-green-600 rounded text-xs"
+                  onClick={() => {
+                    setBId(blog._id);
+                    setAction("changeStatus");
+                    setstatus("fullfilled");
+                    setShowConfirm("true");
+                  }}
+                >
                   Approve
                 </button>
-                <button className="px-2 py-1 bg-yellow-600 rounded text-xs">
+                <button
+                  className="px-2 py-1 bg-yellow-600 rounded text-xs"
+                  onClick={() => {
+                    setBId(blog._id);
+                    setAction("changeStatus");
+                    setstatus("rejected");
+                    setShowConfirm("true");
+                    // console.log(action, status);
+                  }}
+                >
                   Reject
                 </button>
-                <button className="px-2 py-1 bg-red-600 rounded text-xs">
+                <button
+                  className="px-2 py-1 bg-red-600 rounded text-xs"
+                  onClick={() => {
+                    setBId(blog._id);
+                    setAction("delete");
+                    setstatus("");
+                    setShowConfirm("true");
+                    // console.log(action, status);
+                  }}
+                >
                   Delete
                 </button>
               </td>
+
+              {console.log(action, status)}
+              {/* <ConfirmationalCompoDynamic /> */}
+              {/* 👇 confirmation only for this user */}
+              {showConfirm && BId === blog._id && (
+                <th colSpan="4">
+                  <ConfirmationalCompoDynamic
+                    BId={BId}
+                    SetBId={setBId}
+                    action={action}
+                    status={status}
+                    setShowConfirm={setShowConfirm}
+                  />
+                </th>
+              )}
             </tr>
           ))}
         </tbody>

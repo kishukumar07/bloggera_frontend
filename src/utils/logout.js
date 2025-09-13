@@ -7,6 +7,6 @@ export const logout = async () => {
       authorization: `Bearer ${token}`,
     },
   });
-
+  console.log(res.json());
   return res.ok;
 };
