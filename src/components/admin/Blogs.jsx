@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {
   fetchBlog,
-  updateBState,
-  deleteBlog,
+  // updateBState,
+  // deleteBlog,
 } from "../../utils/admin/blogs.js";
-import { AlertTriangle } from "lucide-react";
+// import { AlertTriangle } from "lucide-react";
 import { ConfirmationalCompoDynamic } from "./ConfirmationalCompoDynamic.1";
 // import { deleteUser } from "../../utils/admin/users";
 
@@ -36,9 +36,9 @@ function Blogs() {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((blog) => (
+          {blogs?.map((blog) => (
             <tr key={blog._id} className="border-b border-gray-700">
-              <td className="py-2">{blog.title}</td>
+              <td className="py-2 w-48 whitespace-normal break-words">{blog.title}</td>
               <td className="py-2">{blog.author}</td>
               <td className="py-2">{blog.status}</td>
               <td className="py-2 space-x-2">

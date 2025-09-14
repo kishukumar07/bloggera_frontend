@@ -14,7 +14,7 @@ function Dashboard() {
   }, []);
 
   const cards = [
-    { title: "Total Users", value: data.totalUsers },
+    { title: "Total Users", value: data?.totalUsers },
     { title: "Normal Users", value: data.normalUsers },
     { title: "Admins", value: data.totalAdmin },
     { title: "Total Blogs", value: data.totalBlogs },
