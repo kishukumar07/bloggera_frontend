@@ -122,7 +122,7 @@ function Contact() {
 
       {/* Info Section */}
       <section className="text-center mt-16 text-sm text-gray-500">
-        <p>Email: support@bloggera.in</p>
+        <p>Email: kishukumars082@gmail.com</p>
         <p>Phone: +91 62077 60272</p>
         <p>Address: Ranchi, Jharkhand, India</p>
       </section>

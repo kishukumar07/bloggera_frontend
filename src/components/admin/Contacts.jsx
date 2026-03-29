@@ -1,4 +1,4 @@
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllContacts } from "../../utils/admin/contact.js";
 import { ConfirmationalCompoDynamic } from "./ConfirmationalCompoDynamic3.jsx";
 
