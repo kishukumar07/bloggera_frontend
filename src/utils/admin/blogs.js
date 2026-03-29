@@ -25,7 +25,7 @@ const fetchBlog = async () => {
 const updateBState = async ({ BId, status }) => {
   try {
     const token = localStorage.getItem("token");
-
+   console.log("Sending status:", status);
     const res = await fetch(
       `https://bloggera-gpel.onrender.com/admin/blog/${BId}/status`,
       {

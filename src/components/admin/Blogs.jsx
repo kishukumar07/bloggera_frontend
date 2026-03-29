@@ -38,7 +38,9 @@ function Blogs() {
         <tbody>
           {blogs?.map((blog) => (
             <tr key={blog._id} className="border-b border-gray-700">
-              <td className="py-2 w-48 whitespace-normal break-words">{blog.title}</td>
+              <td className="py-2 w-48 whitespace-normal break-words">
+                {blog.title}
+              </td>
               <td className="py-2">{blog.author}</td>
               <td className="py-2">{blog.status}</td>
               <td className="py-2 space-x-2">
@@ -48,7 +50,7 @@ function Blogs() {
                     setBId(blog._id);
                     setAction("changeStatus");
                     setstatus("fullfilled");
-                    setShowConfirm("true");
+                    setShowConfirm(true);
                   }}
                 >
                   Approve
@@ -59,8 +61,8 @@ function Blogs() {
                     setBId(blog._id);
                     setAction("changeStatus");
                     setstatus("rejected");
-                    setShowConfirm("true");
-                    // console.log(action, status);
+                    setShowConfirm(true);
+                    // console.log(action, status,"k"+BId);
                   }}
                 >
                   Reject
@@ -71,15 +73,15 @@ function Blogs() {
                     setBId(blog._id);
                     setAction("delete");
                     setstatus("");
-                    setShowConfirm("true");
-                    // console.log(action, status);
+                    setShowConfirm(true);
+                    // console.log(action, status , BId ,"dd");
                   }}
                 >
                   Delete
                 </button>
               </td>
 
-              {console.log(action, status)}
+              {console.log(action, status,BId)}
               {/* <ConfirmationalCompoDynamic /> */}
               {/* 👇 confirmation only for this user */}
               {showConfirm && BId === blog._id && (
