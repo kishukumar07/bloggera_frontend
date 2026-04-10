@@ -39,7 +39,7 @@ function About() {
 
         {/* Image with glow */}
         <div className="relative">
-          <div className="absolute top-0 left-0 w-52 h-52 bg-orange-500 blur-3xl opacity-30 animate-pulse rounded-full" />
+          <div />
           <img
             src="/blog.png"
             alt="About Bloggera"
@@ -48,18 +48,7 @@ function About() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="mt-20 text-center">
-        <h3 className="text-2xl font-semibold mb-4">
-          Ready to start your blogging journey?
-        </h3>
-        <a
-          href="/auth"
-          className="inline-block bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-6 py-3 rounded-full font-medium hover:opacity-90 transition"
-        >
-          Get Started
-        </a>
-      </section>
+     
     </main>
   );
 }

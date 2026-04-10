@@ -1,9 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-// 1️⃣ Create Context
+//  Context
 const AuthContext = createContext();
 
-// 2️⃣ Create Provider component
+//   Provider component
 export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
 

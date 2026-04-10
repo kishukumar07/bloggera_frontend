@@ -1,47 +1,67 @@
 import React, { useEffect, useState } from "react";
-import { getAllContacts } from "../../utils/admin/contact.js";
-import { ConfirmationalCompoDynamic } from "./ConfirmationalCompoDynamic3.jsx";
+import { getAllContacts , updatingContactStatus,
+  deleteContact} from "../../utils/admin/contact.js";
+import { ConfirmationModal } from "../comman/ConfirmationModal.jsx"; 
+
+
 
 function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [CId, setCId] = useState("");
   const [status, setStatus] = useState(""); //"pending", "resolved"  or ''
   const [action, setAction] = useState(""); // delete or changeStatus or ''
-  const [showConfirm, setShowConfirm] = useState("false");
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const data = await getAllContacts();
-      //  console.log(data);
-      setContacts(data.messages);
+       try{
+         const data = await getAllContacts();
+         setContacts(data.messages || []);
+       }catch(err){
+        console.error("failed to get Contacts",err) ;
+        setContacts([]); 
+       }
+
+
     })();
   }, [CId]);
 
-  // const handleSubmission = ({ action, CId, status }) => {
-  //   if (action === "delete") {
-  //   } else if (action === "changeStatus") {
-  //   }
-  // };
+  
+//read comments for blogs.jsx
+  const HandelOperations = async ({ CId, action, status }) => {
+    if (action === "delete") {
 
-  // const contacts = [
-  //   {
-  //     id: 1,
-  //     name: "Alice",
-  //     email: "alice@mail.com",
-  //     message: "Need help!",
-  //     status: "New",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Bob",
-  //     email: "bob@mail.com",
-  //     message: "Bug report",
-  //     status: "In Progress",
-  //   },
-  // ];
+      const resMessage = await deleteContact({ CId });
+      alert(`${resMessage}`);
+    } else if (action === "changeStatus") {
+      console.log({ CId, status, action });
+      const resMessage = await updatingContactStatus({ status, CId });
+      alert(`${resMessage}`);
+    }
+  };
+
+
+  let message = "";
+  if (action === "delete") {
+    message = "Are you sure you want to delete this Contact?";
+  } else if (action === "changeStatus") {
+    message = `Are you sure to make this Contact ${status}? `;
+  }
+
+
+  let onConfirm=()=>{
+     if (action === "delete") {
+              HandelOperations({ CId, action, status });
+            } else if (action === "changeStatus") {
+              HandelOperations({ CId, action, status });
+            }
+            setCId("");
+            setShowConfirm(false);
+  }
+
 
   return (
-    <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
+    <div className="bg-gray-800 p-6 rounded-xl shadow-lg overflow-x-auto">
       <h2 className="text-xl font-bold mb-4">Contact Messages</h2>
       <table className="w-full text-sm">
         <thead>
@@ -69,7 +89,7 @@ function Contacts() {
                     setCId(c._id);
                     setAction("changeStatus");
                     setStatus("resolved");
-                    setShowConfirm("true");
+                    setShowConfirm(true);
                   }}
                 >
                   Resolve
@@ -80,22 +100,27 @@ function Contacts() {
                     setCId(c._id);
                     setAction("delete");
                     setStatus("");
-                    setShowConfirm("true");
+                    setShowConfirm(true);
                   }}
                 >
                   Delete
                 </button>
               </td>
-              {/* 👇 confirmation only for this user */}
+
+              {/*  confirmation only for this user */}
               {showConfirm && CId === c._id && (
                 <th colSpan="4">
-                  <ConfirmationalCompoDynamic
-                    CId={CId}
-                    SetCId={setCId}
-                    action={action}
-                    status={status}
-                    setShowConfirm={setShowConfirm}
-                  />
+                  
+                    <ConfirmationModal
+                     message={message}
+                     onConfirm={onConfirm}
+                     onCancel={()=>{
+                         setCId("");
+                       setShowConfirm(false);
+                     }}
+
+                       />
+
                 </th>
               )}
             </tr>

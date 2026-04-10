@@ -1,108 +1,102 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 
 function Home() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get("token");
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
 
-  if (token) {
-    // Save it in localStorage or sessionStorage
-    localStorage.setItem("token", token);
-    // alert("no");
-    console.log("Token saved:", token);
+    if (token) {
+      localStorage.setItem("token", token);
+      console.log("Token saved:", token);
 
-    // Optionally, redirect to another internal route
-    // window.location.href = "/dashboard/main";
-  } else {
-    // alert("yes");
-    console.error("Token not found in URL");
-    // Handle error (e.g., show login prompt)
-  }
+      // Optional: remove token from URL (clean UX)
+      window.history.replaceState({}, document.title, "/");
+    } else {
+      console.error("Token not found in URL");
+    }
+  }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white font-sans relative overflow-hidden">
-      {/* Glowing Orb Effects */}
-      <div className="absolute top-[-100px] left-[-120px] w-[300px] h-[300px] bg-yellow-400 opacity-10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-[-120px] right-[-100px] w-[250px] h-[250px] bg-orange-400 opacity-10 rounded-full blur-2xl animate-ping"></div>
+    <main className="min-h-screen bg-black text-white px-6 py-10 font-sans">
+      {/* Hero Header */}
+      <section className="max-w-5xl mx-auto text-center mb-3">
+        <h1 className="text-4xl md:text-5xl font-serif mb-3">
+          Welcome to{" "}
+          <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
+            Bloggera
+          </span>
+        </h1>
+      </section>
+      {/* Two Column Section */}
+      <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6 mt-6">
+        <p className="text-lg text-gray-400 font-light">
+          Bloggera is the platform where writers, thinkers, and creators share
+          their stories and ideas with the world.
+        </p>
 
-      {/* Hero Section */}
-      <section className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-between relative z-10">
-        {/* Left: Text */}
-        <div className="max-w-xl space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-            Welcome to{" "}
-            <span className="bg-gradient-to-r from-orange-500 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_10px_#ff6a3d]">
-              Bloggera
-            </span>
-          </h1>
-          <p className="text-lg text-gray-400">
-            Discover insightful articles, share your stories, and connect with a
-            community of readers and writers.
-          </p>
-          <div className="flex gap-4">
-            <Link
-              to="/blogs"
-              className="bg-gradient-to-r from-orange-500 via-yellow-400 to-orange-500 text-black px-6 py-2 rounded-md font-semibold shadow-md hover:shadow-[0_0_20px_#ff6a3d] transition"
-            >
-              Explore Blogs
-            </Link>
-            <Link
-              to="/dashboard"
-              className="border border-orange-400 text-orange-400 px-6 py-2 rounded-md font-medium hover:bg-orange-500 hover:text-black hover:shadow-[0_0_15px_#ff6a3d] transition"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-
-        {/* Right: Logo */}
-        <div className="mt-10 md:mt-0 relative">
-          {/* Glowing background */}
-          <div className="absolute w-56 h-56 md:w-72 md:h-72 bg-gradient-to-br from-orange-500 to-yellow-400 rounded-full blur-3xl opacity-30 animate-pulse -z-10" />
+        <div className="flex justify-end">
           <img
-            src="/logo.png"
-            alt="App Logo"
-            className="w-full max-w-xs md:max-w-md relative z-10"
+            src="/blog.png"
+            alt="About Bloggera"
+            className="w-80 rounded-xl shadow-lg"
           />
         </div>
       </section>
+      <section className="mt-10 text-center">
+        <h3 className="text-2xl  text-gray-400 font-light mb-6">
+          Write freely. Share honestly.
+        </h3>
 
-      {/* Features Section */}
-      <section className="bg-[#111111] py-16 relative z-10">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          {[
-            {
-              icon: "✍️",
-              title: "Write",
-              text: "Publish your ideas and share your thoughts with the world.",
-            },
-            {
-              icon: "📖",
-              title: "Read",
-              text: "Browse content from diverse creators and topics that matter.",
-            },
-            {
-              icon: "💬",
-              title: "Engage",
-              text: "Connect with a growing community of readers and bloggers.",
-            },
-          ].map(({ icon, title, text }, idx) => (
-            <div
-              key={idx}
-              className="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-white/10 backdrop-blur-sm rounded-xl p-6 shadow-md hover:shadow-[0_0_20px_#ff6a3d50] transition"
-            >
-              <h3 className="text-xl font-bold text-orange-400">
-                {icon} {title}
-              </h3>
-              <p className="mt-2 text-gray-400">{text}</p>
-            </div>
-          ))}
+        <div className="flex justify-center gap-4 flex-wrap">
+          <a
+            href="/dashboard"
+            className="bg-white text-black px-6 py-2 rounded-full text-sm hover:opacity-80 transition"
+          >
+            Continue as User
+          </a>
+
+          <a
+            href="/adminlogin"
+            className="border border-gray-600 text-gray-300 px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition"
+          >
+            Admin Login
+          </a>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="text-center text-sm py-6 text-gray-500 bg-black relative z-10 border-t border-gray-800">
+<section className="mt-10 text-center">
+  <h2 className="text-lg font-semibold text-gray-300 mb-0">
+    Demo Credentials
+  </h2>
+
+  <div className="flex justify-center gap-6 flex-wrap">
+
+    {/* User Login */}
+    <div >
+      <p className="text-sm text-gray-400 mb-0">User Login</p>
+      <p className="text-sm">Email: kishukumars082@gmail.com</p>
+      <p className="text-sm">Password: qwerty123</p>
+    </div>
+
+    {/* Admin Login */}
+    <div >
+      <p className="text-sm text-gray-400 mb-0">Admin Login</p>
+      <p className="text-sm">Email : niket@gmail.com</p>
+      <p className="text-sm">Password: niket053</p>
+    </div>
+
+  </div>
+</section>
+
+
+      <footer className="text-center text-sm text-gray-500 mt-0">
         &copy; {new Date().getFullYear()} Bloggera. All rights reserved.
+        <section className="text-center font-extralight mt-1 text-xs text-gray-500">
+          <p>Email: kishukumars082@gmail.com</p>
+          <p>Phone: +91 62077 60272</p>
+          <p>Ranchi, Jharkhand</p>
+          <p> India</p>
+        </section>
       </footer>
     </main>
   );

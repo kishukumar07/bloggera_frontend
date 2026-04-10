@@ -1,6 +1,19 @@
 import { useState } from "react";
 import createContent from "../utils/createContent";
 
+
+//i'll have to do this in separate file and then import and use 
+//do every where for clean css structure ...
+//#utility css class...
+//yes but dont need to globalize this cause you dont know which component will differ in input style
+
+//css 
+const btnSuccess = "px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded text-sm";
+const inputStyle =
+  "w-full p-3 rounded-lg bg-[#1a1a1a]  text-white placeholder-gray-400"; 
+
+
+
 const CreateBlog = ({ setActiveTab }) => {
   const [blog, setBlog] = useState({
     title: "",
@@ -13,21 +26,19 @@ const CreateBlog = ({ setActiveTab }) => {
     // console.log(blog);
   };
 
-  const handelSubmit = async (blog) => {
+  const handleSubmit = async (blog) => {
     const res = await createContent(blog);
 
     if (res) {
-      //we have to change the state of the active tab in /dashboard  to "latest"
+    
       setActiveTab("latest");
-      // console.log(`${setActiveTab}`);
+    
     }
   };
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-yellow-400">
-        ✍️ Create a New Blog
-      </h2>
+      <h2 className="text-xl font-extralight text-gray-200">Create a New Blog</h2>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -37,13 +48,13 @@ const CreateBlog = ({ setActiveTab }) => {
             return;
           }
           //check for emptyness...
-          handelSubmit(blog);
+          handleSubmit(blog);
         }}
       >
         <input
           type="text"
           placeholder="Blog Title"
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.title}
           onChange={(event) => {
             // console.log(event.target.value);
@@ -54,7 +65,7 @@ const CreateBlog = ({ setActiveTab }) => {
         <input
           type="text"
           placeholder="Blog Category"
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.category}
           onChange={(event) => {
             // console.log(event.target.value);
@@ -64,7 +75,7 @@ const CreateBlog = ({ setActiveTab }) => {
         <textarea
           rows="6"
           placeholder="Write your blog content here..."
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.content}
           onChange={(event) => {
             // console.log(event.target.value);
@@ -73,9 +84,9 @@ const CreateBlog = ({ setActiveTab }) => {
         ></textarea>
         <button
           type="submit"
-          className="px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-400 text-black font-bold rounded-lg hover:scale-105 transition"
+          className={btnSuccess}
         >
-          🚀 Publish Blog
+          Publish Blog
         </button>
       </form>
     </div>

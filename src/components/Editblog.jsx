@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import fetchBlogbyId from "../utils/fetchblogById";
 import { updateBlog } from "../utils/Updateblog";
 
+//i need to review this further... 
+const inputStyle ="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"; 
+
+
 function Editblog(props) {
   const { blogId, setActiveTab } = props;
 
@@ -52,14 +56,14 @@ function Editblog(props) {
 
     // console.log(blog);
 
-    const res = updateBlog({ blog, blogId });
+    const res =await updateBlog({ blog, blogId });
     if (res) setActiveTab("myblogs");
   };
 
   // JSX return
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-yellow-400">✏️ Edit Blog</h2>
+      <h2 className="text-2xl font-bold text-yellow-400"> Edit Blog</h2>
       <form
         className="space-y-4"
         onSubmit={(e) => {
@@ -70,21 +74,21 @@ function Editblog(props) {
         <input
           type="text"
           placeholder="Blog Title"
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.title}
           onChange={(e) => changeHandler("title", e.target.value)}
         />
         <input
           type="text"
           placeholder="Blog Category"
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.category}
           onChange={(e) => changeHandler("category", e.target.value)}
         />
         <textarea
           rows="6"
           placeholder="Edit blog content here..."
-          className="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"
+          className={inputStyle}
           value={blog.content}
           onChange={(e) => changeHandler("content", e.target.value)}
         ></textarea>
@@ -92,7 +96,7 @@ function Editblog(props) {
         <div className="flex gap-4">
           <button
             type="submit"
-            className="px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-400 text-black font-bold rounded-lg hover:scale-105 transition"
+            className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-black font-bold rounded-lg hover:scale-105 transition"
           >
             Save Changes
           </button>

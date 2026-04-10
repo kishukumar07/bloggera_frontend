@@ -1,13 +1,12 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import ForgotPassword from "../pages/ForgotPassword";
+import Login from "../pages/AuthPages/Login";
+import Register from "../pages/AuthPages/Register";
+import ForgotPassword from "../pages/AuthPages/ForgotPassword";
 
-import Auth from "../pages/Auth";
+// import Auth from "../pages/Auth";
 
 import Blog from "../pages/Blog";
 
@@ -19,14 +18,14 @@ import OneBlog from "../pages/OneBlog";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 // import Logout from "../pages/Logout";
-import AdminLogin from "../pages/AdminLogin";
+import AdminLogin from "../pages/AuthPages/AdminLogin";
 import AdminDashboard from "../pages/AdminDashboard";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<Auth />} />
+      {/* <Route path="/auth" element={<Auth />} /> */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />

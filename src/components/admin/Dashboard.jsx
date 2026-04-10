@@ -6,9 +6,13 @@ function Dashboard() {
 
   useEffect(() => {
     async function fetchData() {
-      const x = await fetchAll();
+      try{
+        const x = await fetchAll();
+        setdasData(x);
+      }catch(err){
+          console.error("Failed to fetch data ",err); 
+      }
       // console.log(x);
-      setdasData(x);
     }
     fetchData();
   }, []);
@@ -30,14 +34,14 @@ function Dashboard() {
   return (
     <div className="p-6 min-h-screen bg-black text-white">
       <h1 className="text-3xl font-bold mb-8 text-center text-orange-400">
-        📊 Admin Dashboard
+        Admin Dashboard
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {cards.map((card, i) => (
           <div
             key={i}
-            className="p-6 rounded-2xl shadow-lg bg-gradient-to-br from-[#111] to-[#1a1a1a] border border-orange-500/20 hover:scale-105 transform transition duration-300"
+            className="p-6 rounded-2xl shadow-lg bg-gray-900 border border-orange-500/20 hover:scale-105 transform transition duration-300"
           >
             <h2 className="text-lg font-semibold text-gray-300">
               {card.title}

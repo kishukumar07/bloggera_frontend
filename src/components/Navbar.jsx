@@ -1,47 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthCheckContext";
 import { logout } from "../utils/logout";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-//for dynamic navigation purpose...
-
 import { jwtDecode } from "jwt-decode";
-
-//admin login hai ya nai idar se pta chal jayega ek state manage kr denge ...
 
 function Navbar() {
   const { authenticated, setAuthenticated } = useAuth();
-  const [IsAdmin, setIsAdmin] = useState(false); //we'll use it for dynamic nav #conditionalRendering
-  // const { setAuthenticated } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
+
+  // Button styles (consistent UI)
+  const btnPrimary =
+    "px-3 py-1.5 border border-grey-500 font-serif text-white hover:bg-white hover:text-black rounded  text-sm";
+  
 
   const handleLogout = async () => {
     const res = await logout();
     if (res) {
-      console.log(res);
       localStorage.removeItem("token");
       setAuthenticated(false);
       navigate("/");
     } else {
-      alert("login first");
-
+      alert("Login first");
       navigate("/");
     }
   };
 
-  // for admin  #conditionalRendering
-  // Use useEffect to avoid calling setIsAdmin in render
+  // Check admin role
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (authenticated && token) {
       try {
         const role = jwtDecode(token).role;
-        if (role === "admin") {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
-        }
+        setIsAdmin(role === "admin");
       } catch (e) {
         setIsAdmin(false);
       }
@@ -50,141 +42,60 @@ function Navbar() {
     }
   }, [authenticated]);
 
-  if (IsAdmin) {
-    return (
-      <nav className="flex items-center justify-between px-6 py-4 bg-[#0f0f0f] border-b border-orange-500 shadow-md">
-        {/* Left - Logo and Brand */}
-        <div className="flex items-center gap-3">
-          <img className="w-10 h-10" src="/logo.png" alt="logo" />
-          <Link
-            to="/"
-            className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400"
-          >
-            Bloggera
-          </Link>
-        </div>
+  return (
+    <nav className="flex items-center justify-between px-6 py-2 bg-[#0f0f0f] border-b shadow-md">
+      
+      {/* Left - Logo */}
+      <div className="flex items-center gap-3">
+        <img className="w-10 h-10" src="/logo.png" alt="logo" />
+        <Link
+          to="/"
+          className="text-2xl   bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent font-serif "
+        >
+          Bloggera
+        </Link>
+      </div>
 
-        {/* Center - Navigation Links */}
-        <div className="hidden md:flex gap-6 text-gray-300 font-medium">
+      {/* Center - Navigation */}
+      <div className="hidden md:flex gap-6 text-gray-300 font-medium">
+        {isAdmin ? (
           <Link
             className="hover:text-orange-400 transition"
             to="/admindashboard"
           >
             Dashboard
           </Link>
-        </div>
-
-        {/* Right - Auth Buttons */}
-        {!authenticated ? (
-          <div className="flex gap-3">
-            <Link
-              to="/login"
-              replace
-              className="text-sm text-orange-400 font-semibold hover:underline"
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/register"
-              replace
-              className="text-sm bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
-            >
-              Register
-            </Link>
-            <Link
-              to="/AdminLogin"
-              replace
-              className="text-sm bg-gradient-to-r from-green-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
-            >
-              AdminLogin
-            </Link>
-          </div>
         ) : (
-          <div className="flex gap-3">
-            <button
-              className="text-sm text-orange-400 font-semibold hover:underline"
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              Sign Out
-            </button>
-            {/* <Link to="/logout" replace>
-            Sign Out
-          </Link> */}
-          </div>
+          <>
+            <Link className="hover:text-orange-400 transition font-serif" to="/">
+              Home
+            </Link>
+            <Link className="hover:text-orange-400 transition font-serif" to="/about">
+              About
+            </Link>
+            <Link className="hover:text-orange-400 transition font-serif" to="/contact">
+              Contact
+            </Link>
+          </>
         )}
-      </nav>
-    );
-  }
-
-  return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-[#0f0f0f] border-b border-orange-500 shadow-md">
-      {/* Left - Logo and Brand */}
-      <div className="flex items-center gap-3">
-        <img className="w-10 h-10" src="/logo.png" alt="logo" />
-        <Link
-          to="/"
-          className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-400"
-        >
-          Bloggera
-        </Link>
       </div>
 
-      {/* Center - Navigation Links */}
-      <div className="hidden md:flex gap-6 text-gray-300 font-medium">
-        <Link className="hover:text-orange-400 transition" to="/">
-          Home
-        </Link>
-        <Link className="hover:text-orange-400 transition" to="/blogs">
-          Blogs
-        </Link>
-        <Link className="hover:text-orange-400 transition" to="/about">
-          About
-        </Link>
-        <Link className="hover:text-orange-400 transition" to="/contact">
-          Contact
-        </Link>
-      </div>
-
-      {/* Right - Auth Buttons */}
+      {/* Right - Auth */}
       {!authenticated ? (
-        <div className="flex gap-3">
-          <Link
-            to="/login"
-            replace
-            className="text-sm text-orange-400 font-semibold hover:underline"
-          >
-            Sign In
-          </Link>
-          <Link
-            to="/register"
-            replace
-            className="text-sm bg-gradient-to-r from-orange-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
-          >
+        <div className="flex gap-2">
+
+          <Link to="/register" replace className={btnPrimary}>
             Register
-          </Link>
-          <Link
-            to="/AdminLogin"
-            replace
-            className="text-sm bg-gradient-to-r from-green-500 to-yellow-400 text-black px-4 py-1.5 rounded-md font-semibold shadow hover:opacity-90 transition"
-          >
-            AdminLogin
           </Link>
         </div>
       ) : (
         <div className="flex gap-3">
           <button
-            className="text-sm text-orange-400 font-semibold hover:underline"
-            onClick={() => {
-              handleLogout();
-            }}
+            className={btnPrimary}
+            onClick={handleLogout}
           >
             Sign Out
           </button>
-          {/* <Link to="/logout" replace>
-            Sign Out
-          </Link> */}
         </div>
       )}
     </nav>

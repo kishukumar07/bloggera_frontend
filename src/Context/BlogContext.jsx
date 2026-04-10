@@ -1,5 +1,3 @@
-import React from "react";
-
 import getblogs from "../utils/fetchblogs.js";
 import { useState, useEffect, createContext, useContext } from "react";
 
