@@ -5,11 +5,14 @@ import deleteBlog from "../utils/deleteBlog";
 
 import{ConfirmationModal}from "./comman/ConfirmationModal.jsx"; 
 import {LoadingModel} from "../components/comman/LoadingModel"; 
+// import {Editblog} from "./Editblog.jsx";
+
+
 
 const Myblog = (props) => {
   const [blogs, setBlogs] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [selectedBlogId, setSelectedBlogId] = useState(null);
+ 
 
   useEffect(() => {
     (async () => {
@@ -21,11 +24,11 @@ const Myblog = (props) => {
 
 
 const onConfirm =async  () => {
-    const res = await deleteBlog(selectedBlogId);
+    const res = await deleteBlog(props.selectedBlogId);
     if (res) {
       setShowConfirm(false);
        // remove deleted blog from UI instantly
-    setBlogs((prev) => prev.filter((b) => b._id !== selectedBlogId));
+    setBlogs((prev) => prev.filter((b) => b._id !== props.selectedBlogId));
     }
   };
 
@@ -80,7 +83,7 @@ let message = "Are you sure?";
                       className="text-yellow-400 hover:text-yellow-300 font-medium"
                       onClick={() => {
                         props.setActiveTab("edit");
-                        setSelectedBlogId(blog._id);
+                        props.setSelectedBlogId(blog._id);
                       }}
                     >
                       Edit
@@ -88,14 +91,13 @@ let message = "Are you sure?";
                     <button
                       onClick={() => {
                         setShowConfirm(true);
-                           
-                        setSelectedBlogId(blog._id);
+                        props.setSelectedBlogId(blog._id);
                       }}
                      className="text-red-500 hover:text-red-400 font-medium"
                     >
                       Delete
                     </button>      
-              {showConfirm && selectedBlogId === blog._id  &&(
+              {showConfirm && props.selectedBlogId === blog._id  &&(
                   <ConfirmationModal
                    message ={message}
                         onConfirm={onConfirm} 

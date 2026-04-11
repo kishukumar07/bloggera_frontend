@@ -9,6 +9,10 @@ const inputStyle ="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 t
 function Editblog(props) {
   const { blogId, setActiveTab } = props;
 
+
+  console.log(props);
+
+  
   const [blog, setBlog] = useState({
     title: "",
     content: "",
