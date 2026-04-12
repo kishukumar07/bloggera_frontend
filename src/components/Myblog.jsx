@@ -58,8 +58,11 @@ const Myblog = (props) => {
                     {cleanTitle(blog.title)}
                   </h3>
                   <span className="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded">
+      
                     {blog.category}
+
                   </span>
+
                 </div>
 
                 <p className="text-gray-300 text-sm leading-relaxed">
@@ -67,7 +70,18 @@ const Myblog = (props) => {
                 </p>
 
                 <div className="flex justify-between items-center pt-2">
-                  <span className="text-xs text-gray-400">{`Author:${blog.author}`}</span>
+  
+                  <span className="text-xs text-gray-400">{
+                `${blog.author}, your blog is ${
+  blog.status === "approved"
+    ? "approved "
+    : blog.status === "pending"
+    ? "under review. Please wait for admin approval. For any queries, contact via the Contact page."
+    : blog.status === "rejected"
+    ? "rejected . For more details, contact the admin via the Contact page."
+    : blog.status
+}.`
+                  }</span>
                   <div className="space-x-4">
                     <button
                       className="text-yellow-400 hover:text-yellow-300 font-medium"

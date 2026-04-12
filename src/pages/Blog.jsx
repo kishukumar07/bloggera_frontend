@@ -29,7 +29,7 @@ if(!(blogs.length)){
             className="bg-gray-900 border  border-gray-500 rounded-xloverflow-hidden transition-all duration-300 hover:scale-[1.02] "
           > 
           <img
-                src="/Prog.png"
+                src="/prog.png"
                 // alt={blog.title}
                 alt="blog pic"
                className=" h-30"
