@@ -1,7 +1,4 @@
-import React from "react";
 import { Link } from "react-router-dom";
-// import { useEffect } from "react";
-// import { useState } from "react";
 import formatDate from "../utils/dateFormatter";
 import { useBlog } from "../Context/BlogContext";
 import {LoadingModel} from "../components/comman/LoadingModel"; 

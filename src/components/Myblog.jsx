@@ -1,39 +1,26 @@
-import { useState, useEffect } from "react";
-import fetchMyBlogs from "../utils/fetchMyBlog";
+//There is one bug i need to when i'm deleting {i'snt updating ui instantly...}
+//same for edit.jsx...
 
+import { useState } from "react";
+import { useBlog } from "../Context/BlogContext";
 import deleteBlog from "../utils/deleteBlog";
-
-import{ConfirmationModal}from "./comman/ConfirmationModal.jsx"; 
-import {LoadingModel} from "../components/comman/LoadingModel"; 
-// import {Editblog} from "./Editblog.jsx";
-
-
+import { ConfirmationModal } from "./comman/ConfirmationModal.jsx";
+import { LoadingModel } from "../components/comman/LoadingModel";
 
 const Myblog = (props) => {
-  const [blogs, setBlogs] = useState([]);
   const [showConfirm, setShowConfirm] = useState(false);
- 
+  const { myBlogs, setMyBlogs } = useBlog();
 
-  useEffect(() => {
-    (async () => {
-      const data = await fetchMyBlogs();
-      setBlogs(data);
-    })();
-  }, []);
-
-
-
-const onConfirm =async  () => {
+  const onConfirm = async () => {
+    setMyBlogs((prev) => prev.filter((b) => b._id !== props.selectedBlogId));
+    setShowConfirm(false);
     const res = await deleteBlog(props.selectedBlogId);
-    if (res) {
-      setShowConfirm(false);
-       // remove deleted blog from UI instantly
-    setBlogs((prev) => prev.filter((b) => b._id !== props.selectedBlogId));
+    if (!res) {
+      console.log("Delete failed, refetch needed");
     }
   };
 
-let message = "Are you sure?"; 
-
+  let message = "Are you sure?";
 
   const getPreview = (text, limit = 200) => {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
@@ -43,9 +30,12 @@ let message = "Are you sure?";
     return title.replaceAll(`"`, "");
   };
 
+  if (!myBlogs) {
+    return <LoadingModel />;
+  }
 
-  if(!blogs.length){
-    return <LoadingModel/>; 
+  if (myBlogs.length === 0) {
+    return <p className="text-center text-gray-400">No blogs found</p>;
   }
 
   return (
@@ -57,7 +47,7 @@ let message = "Are you sure?";
         </p>
 
         <div className="space-y-6">
-          {blogs.map((blog) => (
+          {myBlogs.map((blog) => (
             <div
               key={blog._id}
               className="w-full p-6 rounded-xl bg-gray-900 border border-gray-700 hover:shadow-md"
@@ -77,7 +67,7 @@ let message = "Are you sure?";
                 </p>
 
                 <div className="flex justify-between items-center pt-2">
-                  <span className="text-xs text-gray-400">{blog.author}</span>
+                  <span className="text-xs text-gray-400">{`Author:${blog.author}`}</span>
                   <div className="space-x-4">
                     <button
                       className="text-yellow-400 hover:text-yellow-300 font-medium"
@@ -93,19 +83,19 @@ let message = "Are you sure?";
                         setShowConfirm(true);
                         props.setSelectedBlogId(blog._id);
                       }}
-                     className="text-red-500 hover:text-red-400 font-medium"
+                      className="text-red-500 hover:text-red-400 font-medium"
                     >
                       Delete
-                    </button>      
-              {showConfirm && props.selectedBlogId === blog._id  &&(
-                  <ConfirmationModal
-                   message ={message}
-                        onConfirm={onConfirm} 
-                   onCancel={()=>{
-                      setShowConfirm(false)
-                         }}       
-                  />
-              )}
+                    </button>
+                    {showConfirm && props.selectedBlogId === blog._id && (
+                      <ConfirmationModal
+                        message={message}
+                        onConfirm={onConfirm}
+                        onCancel={() => {
+                          setShowConfirm(false);
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

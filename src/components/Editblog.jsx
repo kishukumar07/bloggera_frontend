@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import fetchBlogbyId from "../utils/fetchblogById";
 import { updateBlog } from "../utils/Updateblog";
-
+import {useBlog} from "../Context/BlogContext"; 
 //i need to review this further... 
 const inputStyle ="w-full p-3 rounded-lg bg-[#1a1a1a] border border-orange-600 text-white placeholder-gray-400"; 
 
-
 function Editblog(props) {
   const { blogId, setActiveTab } = props;
-
-
-  console.log(props);
-
+  const { setMyBlogs } = useBlog();
   
   const [blog, setBlog] = useState({
     title: "",
@@ -19,7 +15,7 @@ function Editblog(props) {
     category: "",
   });
 
-  // Fetch blog details when blogId is available
+
   useEffect(() => {
     const fetchBlog = async () => {
       try {
@@ -41,9 +37,7 @@ function Editblog(props) {
     }
   }, [blogId]);
 
-  //handeling updateBlog ...here
-
-  // Handler for input changes
+  
   const changeHandler = (field, value) => {
     setBlog((prev) => ({
       ...prev,
@@ -51,20 +45,26 @@ function Editblog(props) {
     }));
   };
 
-  // Submit handler
   const handleSubmit = async (blog) => {
-    if (!blog.title || !blog.content || !blog.category) {
+
+    if(!blog.title || !blog.content || !blog.category) {
       alert("Please fill in all fields before saving.");
       return;
     }
-
-    // console.log(blog);
-
-    const res =await updateBlog({ blog, blogId });
-    if (res) setActiveTab("myblogs");
+    
+    const res = await updateBlog({ blog, blogId });
+    
+    if (res){
+           setActiveTab("myblogs");
+           console.log(res); 
+          setMyBlogs((prev) =>
+          prev.map((b) => (b._id === blogId ? {   ...b , ...blog }: b)))
+    } else{
+      console.log("failed to Edit blog.."); 
+    }
   };
 
-  // JSX return
+ 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-yellow-400"> Edit Blog</h2>

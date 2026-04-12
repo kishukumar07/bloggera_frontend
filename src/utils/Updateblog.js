@@ -9,18 +9,19 @@ export const updateBlog = async ({ blog, blogId }) => {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(blog),
-      }
+      },
     );
 
     if (res.ok) {
       alert("Blog updated successfully!");
-
-      return true;
+      return res;
     } else {
       alert("Failed to update blog. try again later");
+      return false;
     }
   } catch (err) {
     console.error("Error updating blog:", err);
     alert("Something went wrong.");
+    return false;
   }
 };

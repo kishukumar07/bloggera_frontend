@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 
 function Home() {
   useEffect(() => {
@@ -87,8 +87,6 @@ function Home() {
 
   </div>
 </section>
-
-
       <footer className="text-center text-sm text-gray-500 mt-0">
         &copy; {new Date().getFullYear()} Bloggera. All rights reserved.
         <section className="text-center font-extralight mt-1 text-xs text-gray-500">
