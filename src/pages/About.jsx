@@ -16,7 +16,28 @@ function About() {
           and creators share their stories and ideas with the world.
         </p>
       </section>
+<section className="max-w-5xl mx-auto text-gray-400 space-y-6 mb-16">
+  <p>
+    <span className="text-white font-semibold">Bloggera</span> is a full-stack RBAC-enabled CMS blogging platform
+    where users can create, edit, and manage their own blog content with secure authentication and role-based access control.
+  </p>
 
+  <p>
+    The platform includes a dedicated admin dashboard that controls blog approval before publication, ensuring quality and moderation
+    across all posts. Only approved blogs are visible in the public feed.
+  </p>
+
+  <p>
+    The admin system is divided into multiple modules including analytics dashboard, user management, content moderation, and blog
+    approval workflows, making it a complete production-style CMS system.
+  </p>
+
+  <p>
+    Built using the MERN stack with a fully responsive UI in React and Tailwind CSS, Bloggera follows MVC architecture and is deployed
+    with the frontend on Vercel and backend on Render.
+  </p>
+</section>
+      
       {/* Two Column Section */}
       <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Text Content */}
